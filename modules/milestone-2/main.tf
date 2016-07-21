@@ -1,23 +1,64 @@
-#milestone-2
+#Server Park
 
-variable "subscription_id" {}
-variable "client_id" {}
-variable "client_secret" {}
-variable "tenant_id" {}
-variable "resourceGroupName" {}
-variable "location" {}
-variable "storageAccountName" {}
-variable "storageAccountType" {}
-variable "virtualNetworkName" {}
-variable "virtualNetworkAddressSpace" {}
-variable "subnetAdditionalBits" {}
-variable "VMName" {}
-variable "VMSize" {}
-variable "imagePublisher" {}
-variable "imageOffer" {}
-variable "imageSKU" {}
-variable "adminUsername" {}
-variable "adminPassword" {}
+/*
+Module Description = The server park module creates a given number of virtual machines with one of them connected to a public IP-address
+*/
+
+variable "subscription_id" {
+  description = "The Subscription id of your Azure account"
+}
+variable "client_id" {
+  description = "The client id of your Azure account"
+}
+variable "client_secret" {
+  description = "The client secret of your Azure account"
+}
+variable "tenant_id" {
+  description = "The tenant id of your Azure account"
+}
+variable "resourceGroupName" {
+  description = "The name of the resource group containing the VM"
+}
+variable "location" {
+  description = "The geographical location of the VM"
+}
+variable "storageAccountName" {
+  description = "Name of the storage account. Must be unique in Azure"
+}
+variable "storageAccountType" {
+  description = "The type of the storage account"
+}
+variable "virtualNetworkAddressSpace" {
+ description = "The address space of the virtual network"
+}
+variable "subnetAdditionalBits" {
+  description = "Additional bits used by subnets"
+}
+variable "privateVMCount" {
+  description = "The number of private virtual machines"
+  default = "1"
+}
+variable "VMName" {
+  description = "The name of the VM"
+}
+variable "VMSize" {
+  description = "The size of the storage for the VM"
+}
+variable "imagePublisher" {
+  description = "The publisher of the OS image for the VM"
+}
+variable "imageOffer" {
+  description = "The offer of the OS image for the VM"
+}
+variable "imageSKU" {
+  description = "The SKU of the OS image for the VM"
+}
+variable "adminUsername" {
+  description = "The admin username for the VM"
+}
+variable "adminPassword" {
+  description = "The admin password for the VM"
+}
 
 provider "azurerm" {
   subscription_id = "${var.subscription_id}"
@@ -52,7 +93,7 @@ module "privateVMs" {
   source = "../modules/connectedVM"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
-  count = "1"
+  count = "${var.privateVMCount}"
   name = "${var.VMName}-private"
   subnetID = "${module.vnetWithSubnet.subnetIDSplat}"
   size = "${var.VMSize}"
@@ -80,5 +121,8 @@ module "publicVM" {
 }
 
 output "ipAddress" {
-    value = "${module.publicVM.publicIPAddress}"
+  /*
+  Output Description = "The public IP-address of the server park"
+  */
+  value = "${module.publicVM.publicIPAddress}"
 }

@@ -1,13 +1,21 @@
-#milestone-1
+#Virtual Machine
 
 /**
-Module Description = Creates one VM with a public IP-addess
+Module Description = The virtual machine module creates one VM with a public IP-address
 */
 
-variable "subscription_id" {}
-variable "client_id" {}
-variable "client_secret" {}
-variable "tenant_id" {}
+variable "subscription_id" {
+  description = "The Subscription id of your Azure account"
+}
+variable "client_id" {
+  description = "The client id of your Azure account"
+}
+variable "client_secret" {
+  description = "The client secret of your Azure account"
+}
+variable "tenant_id" {
+  description = "The tenant id of your Azure account"
+}
 variable "resourceGroupName" {
   description = "The name of the resource group containing the VM"
 }
@@ -15,13 +23,13 @@ variable "location" {
   description = "The geographical location of the VM"
 }
 variable "storageAccountName" {
-  description = "Name of the storage account. Must be unique in Azure
+  description = "Name of the storage account. Must be unique in Azure"
 }
 variable "storageAccountType" {
   description = "The type of the storage account"
 }
 variable "virtualNetworkAddressSpace" {
- description = "The address space of the virtual network
+ description = "The address space of the virtual network"
 }
 variable "subnetAdditionalBits" {
   description = "Additional bits used by subnets"
@@ -93,9 +101,8 @@ module "publicVM" {
 }
 
 output "publicIPAddress" {
+  /*
+  Output Description = "The public IP-address attached to the VM"
+  */
   value = "${module.publicVM.publicIPAddress}"
-}
-
-output "dummy" {
-  value = "Outputs are bugged"
 }
