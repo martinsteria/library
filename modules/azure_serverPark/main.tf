@@ -28,6 +28,9 @@ variable "storageAccountName" {
 variable "storageAccountType" {
   description = "The type of the storage account"
 }
+variable "virtualNetworkName" {
+  description = "The name of the virtual network"
+}
 variable "virtualNetworkAddressSpace" {
  description = "The address space of the virtual network"
 }
