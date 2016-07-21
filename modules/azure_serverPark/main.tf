@@ -73,7 +73,7 @@ resource "azurerm_resource_group" "RG" {
 }
 
 module "storageAccount" {
-  source = "../resources/storageAccount"
+  source = "../../resources/storageAccount"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   name = "${var.storageAccountName}"
@@ -81,7 +81,7 @@ module "storageAccount" {
 }
 
 module "vnetWithSubnet" {
-  source = "../modules/vnetWithSubnets"
+  source = "../vnetWithSubnets"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   name = "${var.virtualNetworkName}"
@@ -90,7 +90,7 @@ module "vnetWithSubnet" {
 }
 
 module "privateVMs" {
-  source = "../modules/connectedVM"
+  source = "../connectedVM"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   count = "${var.privateVMCount}"
@@ -106,7 +106,7 @@ module "privateVMs" {
 }
 
 module "publicVM" {
-  source = "../modules/publicVM"
+  source = "../publicVM"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   name = "${var.VMName}-public"
