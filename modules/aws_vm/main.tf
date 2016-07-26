@@ -16,15 +16,19 @@ variable "region" {
 
 variable "vpc_cidr" {
 	description = "The CIDR range of your VPC"
+	default = "10.0.0.0/16"
 }
 variable "vpc_name" {
 	description = "The name of the VPC"
+	default = "VPC"
 }
 variable "igw_name" {
 	description = "The name of internet gateway"
+	default = "IGW"
 }
 variable "subnet_cidr" {
 	description = "The CIDR range of your private subnet"
+	default = "10.0.1.0/24"
 }
 variable "ami" {
 	description = "The AMI-id of your public instance. The AMI contains specifies the software configuration of the instance"	
@@ -35,7 +39,7 @@ variable "type" {
 	default = "t2.micro"
 }
 variable "key" {
-	description = "The name of the ssh-key to your public instance"
+	description = "The name of the ssh-key you want to assign to the public instance. The key need to exists already."
 }
 
 variable "numberOfPublicInstances" {
