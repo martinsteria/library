@@ -76,7 +76,7 @@ resource "azurerm_resource_group" "RG" {
 }
 
 module "storageAccount" {
-  source = "../../resources/storageAccount"
+  source = "../../resources/azure_resources/storageAccount"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   name = "${var.storageAccountName}"
@@ -84,7 +84,7 @@ module "storageAccount" {
 }
 
 module "vnetWithSubnet" {
-  source = "../vnetWithSubnets"
+  source = "../azure/vnetWithSubnets"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   name = "${var.virtualNetworkName}"
@@ -93,7 +93,7 @@ module "vnetWithSubnet" {
 }
 
 module "privateVMs" {
-  source = "../connectedVM"
+  source = "../azure/connectedVM"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   count = "${var.privateVMCount}"
@@ -109,7 +109,7 @@ module "privateVMs" {
 }
 
 module "publicVM" {
-  source = "../publicVM"
+  source = "../azure/publicVM"
   resourceGroupName = "${azurerm_resource_group.RG.name}"
   location = "${var.location}"
   name = "${var.VMName}-public"
